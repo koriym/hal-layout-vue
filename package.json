@@ -1,0 +1,67 @@
+{
+  "name": "hal-layout-vue",
+  "version": "0.1.0",
+  "description": "Vue3 components for rendering HAL (Hypertext Application Language) resources",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "typecheck": "vue-tsc --noEmit",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "lint": "eslint src --ext ts,vue",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koriym/hal-layout-vue.git"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "hal",
+    "hypermedia",
+    "rest",
+    "api",
+    "hateoas",
+    "ketting"
+  ],
+  "author": "Akihito Koriyama <akihito.koriyama@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/koriym/hal-layout-vue/issues"
+  },
+  "homepage": "https://github.com/koriym/hal-layout-vue#readme",
+  "peerDependencies": {
+    "vue": "^3.3.0"
+  },
+  "dependencies": {
+    "ketting": "^7.5.1"
+  },
+  "devDependencies": {
+    "@testing-library/vue": "^8.1.0",
+    "@types/node": "^22.10.5",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/test-utils": "^2.4.6",
+    "jsdom": "^26.0.0",
+    "typescript": "~5.7.3",
+    "vite": "^6.0.7",
+    "vite-plugin-dts": "^4.4.0",
+    "vitest": "^2.1.8",
+    "vue": "^3.5.13",
+    "vue-tsc": "^2.2.0"
+  }
+}
