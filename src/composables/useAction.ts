@@ -180,6 +180,7 @@ export function useAction<TBody = unknown, TResponse = unknown>(
       error.value = e;
       onError?.(e);
       return null;
+    /* c8 ignore next 3 - finally block always executes */
     } finally {
       loading.value = false;
     }

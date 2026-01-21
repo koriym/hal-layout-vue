@@ -339,7 +339,7 @@ describe('HalLink Component', () => {
     expect(wrapper.find('button').attributes('disabled')).toBeDefined();
   });
 
-  it('should handle keyboard navigation for span elements', async () => {
+  it('should handle keyboard navigation with Enter key for span elements', async () => {
     const mockClient = new MockClient();
     mockClient.setResource('/posts/1/action', {
       _links: { self: { href: '/posts/1/action' } },
@@ -363,6 +363,35 @@ describe('HalLink Component', () => {
     });
 
     await wrapper.find('span').trigger('keydown', { key: 'Enter' });
+    await flushPromises();
+
+    expect(wrapper.emitted('success')).toBeTruthy();
+  });
+
+  it('should handle keyboard navigation with Space key for span elements', async () => {
+    const mockClient = new MockClient();
+    mockClient.setResource('/posts/1/action', {
+      _links: { self: { href: '/posts/1/action' } },
+    });
+
+    const context = createMockContext({
+      _links: {
+        self: { href: '/posts/1' },
+        action: { href: '/posts/1/action' },
+      },
+    });
+
+    const wrapper = mount(HalLink, {
+      props: { rel: 'action', as: 'span', method: 'POST' },
+      global: {
+        provide: {
+          [HypermediaContextKey as symbol]: context,
+          [HalClientKey as symbol]: mockClient,
+        },
+      },
+    });
+
+    await wrapper.find('span').trigger('keydown', { key: ' ' });
     await flushPromises();
 
     expect(wrapper.emitted('success')).toBeTruthy();
@@ -420,6 +449,30 @@ describe('HalLink Component', () => {
 
     // The success event should NOT be emitted because the action wasn't executed
     expect(wrapper.emitted('success')).toBeFalsy();
+  });
+
+  it('should use # as fallback href when link has no href', () => {
+    const mockClient = new MockClient();
+    const context = createMockContext({
+      _links: {
+        self: { href: '/posts/1' },
+        // Link without href property
+        action: { title: 'Action' } as unknown as { href: string },
+      },
+    });
+
+    const wrapper = mount(HalLink, {
+      props: { rel: 'action', method: 'GET' },
+      global: {
+        provide: {
+          [HypermediaContextKey as symbol]: context,
+          [HalClientKey as symbol]: mockClient,
+        },
+      },
+    });
+
+    // When href is null, template uses '#' as fallback
+    expect(wrapper.find('a').attributes('href')).toBe('#');
   });
 
   it('should execute action for GET anchor with default preventDefault=true', async () => {

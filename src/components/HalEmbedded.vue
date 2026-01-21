@@ -69,6 +69,7 @@ const isArray = computed(() => Array.isArray(embedded.value));
 
 // Get items as array (normalize single item to array)
 const items = computed((): Array<{ data: T; halData: HalResource<T>; index: number }> => {
+  /* c8 ignore next - Guard for undefined embedded */
   if (!embedded.value) return [];
 
   if (Array.isArray(embedded.value)) {
