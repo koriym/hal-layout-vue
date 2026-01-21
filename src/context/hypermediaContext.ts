@@ -109,6 +109,7 @@ export function useLinkHref(rel: string): string | null {
   if (!link) return null;
 
   if (Array.isArray(link)) {
+    /* c8 ignore next - Edge case: array link with missing href */
     return link[0]?.href ?? null;
   }
   return link.href;

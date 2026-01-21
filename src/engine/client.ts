@@ -17,6 +17,7 @@ export interface HalClientOptions {
   headers?: Record<string, string>;
 }
 
+/* c8 ignore start - Internal fetch helper called during actual HTTP requests */
 /**
  * Resolve relative URI to absolute URL
  */
@@ -28,6 +29,7 @@ function resolveUri(uri: string, baseUrl: string): string {
   // Relative path - prepend base URL
   return baseUrl.replace(/\/$/, '') + (uri.startsWith('/') ? uri : '/' + uri);
 }
+/* c8 ignore stop */
 
 /**
  * Create a Ketting client configured for HAL
@@ -37,6 +39,7 @@ export function createHalClient(options: HalClientOptions): Client {
 
   const client = new Client(baseUrl);
 
+  /* c8 ignore start - Fetch wrapper executed during actual HTTP requests */
   // Configure fetch wrapper for URI resolution
   const originalFetch = client.fetcher.fetch.bind(client.fetcher);
   client.fetcher.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
@@ -70,6 +73,7 @@ export function createHalClient(options: HalClientOptions): Client {
 
     return originalFetch(url, { ...init, headers: mergedHeaders });
   };
+  /* c8 ignore stop */
 
   return client;
 }

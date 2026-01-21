@@ -144,8 +144,5 @@ defineExpose({
   <slot v-else-if="error && !state" name="error" :error="error">
     <div role="alert" style="color: red">Error: {{ error.message }}</div>
   </slot>
-  <slot v-else-if="state"></slot>
-  <slot v-else name="fallback">
-    <div>Loading...</div>
-  </slot>
+  <slot v-else></slot>
 </template>

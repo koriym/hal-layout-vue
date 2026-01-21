@@ -4,6 +4,8 @@ Vue 3 components for rendering [HAL (Hypertext Application Language)](https://da
 
 This is the Vue 3 port of [hal-layout](https://github.com/koriym/hal-layout) (React version).
 
+**[Live Demo](https://koriym.github.io/hal-layout-vue/demo/)**
+
 ## Installation
 
 ```bash

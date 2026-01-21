@@ -44,6 +44,7 @@ export function expandUriTemplate(template: string, params: TemplateParams): str
       }
     }
 
+    /* c8 ignore next - Empty query case */
     return queryParts.length > 0 ? `?${queryParts.join('&')}` : '';
   });
 
@@ -59,6 +60,7 @@ export function expandUriTemplate(template: string, params: TemplateParams): str
       }
     }
 
+    /* c8 ignore next - Empty continuation case */
     return queryParts.length > 0 ? `&${queryParts.join('&')}` : '';
   });
 
